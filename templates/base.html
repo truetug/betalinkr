@@ -18,8 +18,9 @@
 
     {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 <!-- NAVBAR -->
+    {% block body %}
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container-fluid">
@@ -57,6 +58,7 @@
             {% endblock %}
         </footer>
     </div>
+    {% endblock %}
 </body>
 </html>
 {% endspaceless %}
