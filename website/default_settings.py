@@ -1,5 +1,5 @@
 # encoding: utf-8
-VERSION = ['0', '1', '1']
+VERSION = ['0', '1', '2']
 get_version = lambda: '.'.join(VERSION)
 
 import os
