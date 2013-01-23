@@ -62,8 +62,6 @@ class Migration(DataMigration):
         'localsite.profile': {
             'Meta': {'object_name': 'Profile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'radius_login': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'theme': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True'})
         }
     }
