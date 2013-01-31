@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>bm</title>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<style type="text/css">
+			.linkmarklet {
+				position: fixed;
+				top: 0;
+				right: 0;
+				width: 100%;
+				height: auto;
+				background: black;
+				opacity: 0.9;
+				color: #99FF00;
+				font-size: 1.3em;
+				z-index: 100001;
+				font-family: Arial;
+			}
+			.linkmarklet-wrapper {
+				padding: 15px;
+			}
+			.linkmarklet-header {
+				margin-bottom: 20px;
+			}
+			.linkmarklet-close-button {
+				float: right;
+				text-decoration: none;
+				color: white;
+				font-size: 32px;
+			}
+			.linkmarklet-close-button:hover {
+				color: red;
+			}
+			.linkmarklet-content-row:after {
+				clear: both;
+			}
+			.linkmarklet-content-row-wrapper {
+				float: left;
+				width: 100%;
+			}
+			.linkmarklet-content-row-left {
+				float: left;
+				margin-left: -100%;
+				width: 100px;
+				color: white;
+				font-size: 0.7em;
+				padding: 5px;
+				text-align: right;
+			}
+			.linkmarklet-content-row-right {
+				margin-left: 120px;
+				padding-right: 20px;
+			}
+			.linkmarklet input {
+				background: black;
+				color: white;
+				width: 100%;
+				margin-bottom: 20px;
+				-moz-border-bottom-colors: none;
+				-moz-border-left-colors: none;
+				-moz-border-right-colors: none;
+				-moz-border-top-colors: none;
+				border-color: #737373 #737373 #737373;
+				border-image: none;
+				border-right: 1px solid #737373;
+				border-style: solid;
+				border-width: 1px;
+				font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, "Helvetica Neue", Arial, Helvetica, sans-serif;
+				font-size: 16px;
+				height: 26px;
+				padding: 4px;
+				outline: none;
+				border-radius: 5px;
+			}
+			.linkmarklet input:focus {
+				-webkit-box-shadow: 0px 0px 5px #99FF00;
+				-moz-box-shadow: 0px 0px 5px #99FF00;
+				box-shadow: 0px 0px 5px #99FF00;
+				border-color: #99FF00;
+			}
+			.linkmarklet-post-button {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 14px;
+				color: #ffffff;
+				padding: 10px 20px;
+				background: -moz-linear-gradient(
+				top,
+				#3d5726 0%,
+				#3b3b3b 50%,
+				#242424 50%,
+				#000000);
+				background: -webkit-gradient(
+				linear, left top, left bottom,
+				from(#3d5726),
+				color-stop(0.50, #3b3b3b),
+				color-stop(0.50, #242424),
+				to(#000000));
+				-moz-border-radius: 10px;
+				-webkit-border-radius: 10px;
+				border-radius: 10px;
+				border: 1px solid #59db18;
+				-moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+				-webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+				box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 1px rgba(255,255,255,0.6);
+				text-shadow: 0px -1px 0px rgba(000,000,000,1), 0px 1px 0px rgba(255,255,255,0.2);
+			}
+			.linkmarklet-post-button:hover {
+				cursor: pointer;
+				color: #99FF00;
+			}
+			.linkmarklet-post-button:focus {
+				-webkit-box-shadow: 0px 0px 7px #99FF00;
+				-moz-box-shadow: 0px 0px 7px #99FF00;
+				box-shadow: 0px 0px 7px #99FF00;
+			}
+
+		</style>
+
+		<script type="text/javascript">
+			function Linkmarklet(globals, options) {
+				this.initialize(globals, options);
+			}
+
+
+			Linkmarklet.prototype.initialize = function(globals, options) {
+				this.globals = globals;
+				this.doc = globals.document;
+
+				this.options = options;
+
+				this.isIE = (this.globals.navigator.appVersion.indexOf("MSIE", 0) != -1);
+				this.isSafari = (this.globals.navigator.appVersion.indexOf("WebKit", 0) != -1);
+				this.isFirefox = (this.globals.navigator.userAgent.indexOf("Firefox", 0) != -1);
+				this.isIpad = (this.globals.navigator.userAgent.indexOf("WebKit") > 0 && this.globals.navigator.userAgent.indexOf("iPad") > 0);
+				this.isIphone = (this.globals.navigator.userAgent.indexOf("WebKit") > 0 && this.globals.navigator.userAgent.indexOf("iPhone") > 0);
+
+				this.showForm();
+			}
+
+			Linkmarklet.prototype.showForm = function() {
+				var instance = this.doc.getElementById('Linkmarklet');
+				if (!instance) {
+					var form = this.constructForm();
+					this.doc.getElementsByTagName('body')[0].appendChild(form);
+				}
+			}
+
+			Linkmarklet.prototype.constructFormRow = function(labelText, className) {
+				var wrapper = this.doc.createElement('div');
+				wrapper.className = "linkmarklet-content-row";
+
+				var left = this.doc.createElement('div');
+				left.className = "linkmarklet-content-row-left";
+
+				var lbl = this.doc.createElement('label');
+				lbl.innerHTML = labelText;
+				left.appendChild(lbl);
+
+				var contentwrapper = this.doc.createElement('div');
+				contentwrapper.className = "linkmarklet-content-row-wrapper"
+
+				var right = this.doc.createElement('div');
+				right.className = "linkmarklet-content-row-right";
+				var input = this.doc.createElement('input');
+				input.type = "text";
+				input.className = className;
+				right.appendChild(input);
+
+				contentwrapper.appendChild(right);
+
+				wrapper.appendChild(contentwrapper);
+				wrapper.appendChild(left);
+				return wrapper;
+			}
+
+			Linkmarklet.prototype.constructForm = function() {
+				var container = this.doc.createElement('div');
+				container.setAttribute('id', 'Linkmarklet');
+				container.className = "linkmarklet";
+				var wrapper = this.doc.createElement('div');
+				wrapper.className = "linkmarklet-wrapper";
+				var header = this.doc.createElement('div');
+				header.className = "linkmarklet-header";
+				header.innerHTML = "Post This Page To Betalinkr!"
+				var close = this.doc.createElement('a');
+				close.className = "linkmarklet-close-button";
+				close.href = "#";
+				close.innerHTML = "×";
+				var self = this;
+				close.onclick = function(event) {
+					event.preventDefault();
+					return ( elem = document.getElementById("Linkmarklet")).parentNode.removeChild(elem);
+				}
+				header.appendChild(close);
+				var content = this.doc.createElement('div');
+				content.className = "linkmarklet-content";
+
+				content.appendChild(this.constructFormRow("header", "linkmarklet-post-header"));
+				content.appendChild(this.constructFormRow("tags", "linkmarklet-post-tags"));
+				content.appendChild(this.constructFormRow("description", "linkmarklet-post-descr"));
+
+				var footer = this.doc.createElement('div');
+				footer.className = "linkmarklet-footer";
+				var button = this.doc.createElement('button');
+				button.className = "linkmarklet-post-button";
+				button.innerHTML = "POST";
+				button.onclick = function(event) {
+					alert("sent");
+				}
+				footer.appendChild(button);
+				wrapper.appendChild(header);
+				wrapper.appendChild(content);
+				wrapper.appendChild(footer);
+				container.appendChild(wrapper);
+				return container;
+			}
+
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+
+			<div class="container">
+				<a href="javascript:(function(){new Linkmarklet(window, {})})();">CLICK</a>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br />
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			</div>
+
+			<div class="footer" style="position:fixed; bottom:0;">
+				<p>
+					&copy; 2013
+				</p>
+			</div>
+
+		</div>
+	</body>
+</html>
+
